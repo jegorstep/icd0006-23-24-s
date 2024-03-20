@@ -2,11 +2,19 @@ export class Block {
 
     width = 94.5;
     height = 25;
+    left = 0;
+    top = 0;
 
-    constructor() {
+    hp = 2;
+
+    constructor(borderThickness, i, j) {
+        this.left = borderThickness + this.width * i;
+        this.top = borderThickness + this.height * j;
+        this.hp = Math.floor(Math.random() * 3) + 1;
     }
 
 }
+
 
 export class Ball {
     width = 12;
@@ -16,9 +24,6 @@ export class Ball {
 
     x = 1;
     y = 1;
-
-
-
 
 
     #intervalId = null;
@@ -60,6 +65,13 @@ export class Ball {
             this.top += step * this.y;
             this.validateAndFixPosition(borderThickness);
         }, 4);
+    }
+
+    stopMove(borderThickness) {
+        if (!this.#intervalId) return;
+        clearInterval(this.#intervalId);
+        this.#intervalId = null;
+        this.validateAndFixPosition(borderThickness);
     }
 
     changeDirectionX() {
@@ -120,6 +132,7 @@ export class Platform {
         width = 1000;
         height = 1000;
         borderThickness = 30;
+        score = 0;
 
         platform;
         ball;
@@ -144,6 +157,10 @@ export class Platform {
             ball.startMove(step, this.borderThickness);
         }
 
+        stopMoveBall(ball) {
+            ball.stopMove(this.borderThickness);
+        }
+
         ballPaddleCollision() {
 
             if (this.ball.top + this.ball.height >= this.platform.top && this.ball.left >= this.platform.left &&
@@ -155,14 +172,36 @@ export class Platform {
 
         createBlocks(rows) {
             let blockContainer = [];
+            let j = 0;
         while (rows > 0) {
             let blockRow = [];
             for (let i = 0; i < 10; i++) {
-                blockRow.push(new Block());
+                blockRow.push(new Block(this.borderThickness, i, j));
             }
             blockContainer.push(blockRow);
             rows--;
+            j++;
         }
         this.blockContainer = blockContainer;
+        }
+
+        ballBlockCollision() {
+            for (let i = 0; i < this.blockContainer.length; i++) {
+                for (let j = 0; j < this.blockContainer[i].length; j++) {
+                    const block = this.blockContainer[i][j];
+
+
+                    if (this.ball.left <= block.left + block.width &&
+                        this.ball.left + this.ball.width >= block.left &&
+                        this.ball.top <= block.top + block.height &&
+                        this.ball.top + this.ball.height >= block.top && block.hp > 0) {
+                        this.blockContainer[i][j].hp = this.blockContainer[i][j].hp - 1;
+                        this.ball.changeDirectionY();
+                        if ( this.blockContainer[i][j].hp === 0) {
+                            this.score += 10;
+                        }
+                    }
+                }
+            }
         }
     }

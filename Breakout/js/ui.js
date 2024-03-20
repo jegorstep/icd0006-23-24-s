@@ -91,13 +91,23 @@ export default class UI {
                 let calculatedBlockWidth = this.calculateScaledX(blocksRow[j].width);
                 let calculatedBlockHeight = this.calculateScaledY(blocksRow[j].height);
 
+                let calculatedBlockLeft = this.calculateScaledX(blocksRow[j].left);
+                let calculatedBlockTop = this.calculateScaledY(blocksRow[j].top);
+
                 block.style.width = calculatedBlockWidth + 'px';
                 block.style.height = calculatedBlockHeight + 'px';
 
-                block.style.left = this.calculateScaledX(this.brain.borderThickness) + calculatedBlockWidth * (j)  + 'px';
-                block.style.top = this.calculateScaledY(this.brain.borderThickness) + calculatedBlockHeight * (i)  + 'px';
-                if ((i + j) % 2 === 0)  {
+                block.style.left =  calculatedBlockLeft  + 'px';
+                block.style.top = calculatedBlockTop  + 'px';
+
+                if (blocksRow[j].hp === 3)  {
+                    block.style.backgroundColor = 'brown'
+                } else if (blocksRow[j].hp === 2) {
                     block.style.backgroundColor = 'green'
+                } else if (blocksRow[j].hp === 1) {
+                    block.style.backgroundColor = 'yellow'
+                } else {
+                    block.style.backgroundColor = 'transparent'
                 }
 
                 blockRowHTML.append(block);
@@ -124,6 +134,22 @@ export default class UI {
         this.appContainer.append(div);
     }
 
+    drawScore() {
+        let score = document.createElement('div');
+
+        score.style.top = this.calculateScaledY(500);
+        score.style.left = this.calculateScaledX(500);
+
+        score.style.position = 'fixed';
+
+        score.style.zIndex = 10000;
+
+        score.style.fontSize = '20px'; // Set font size to 24 pixels
+        score.textContent = "Score: " + this.brain.score;
+
+        this.appContainer.append(score);
+    }
+
 
 
     draw() {
@@ -136,6 +162,8 @@ export default class UI {
         this.drawPlatform(this.brain.platform);
 
         this.drawBall(this.brain.ball);
+
+        this.drawScore();
 
         this.drawBorder();
     }
