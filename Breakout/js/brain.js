@@ -22,8 +22,10 @@ export class Ball {
     left = 0;
     top = 0;
 
-    x = 1;
+    x = 0;
     y = 1;
+
+    ballOutOfBound = false;
 
 
     #intervalId = null;
@@ -53,6 +55,7 @@ export class Ball {
         if (this.top > 1000 - borderThickness - this.height) {
             this.top = 1000 - borderThickness - this.height;
             this.changeDirectionY();
+            this.ballOutOfBound = true;
         }
 
     }
@@ -129,6 +132,10 @@ export class Platform {
 }
 
     export default class Brain {
+
+        pause = false;
+        gameOver = false;
+
         width = 1000;
         height = 1000;
         borderThickness = 30;
@@ -154,7 +161,9 @@ export class Platform {
         }
 
         startMoveBall(ball, step) {
-            ball.startMove(step, this.borderThickness);
+            if (!ball.ballOutOfBound) {
+                ball.startMove(step, this.borderThickness);
+            }
         }
 
         stopMoveBall(ball) {
@@ -164,9 +173,10 @@ export class Platform {
         ballPaddleCollision() {
 
             if (this.ball.top + this.ball.height >= this.platform.top && this.ball.left >= this.platform.left &&
-                this.ball.width + this.ball.left <= this.platform.left + this.platform.width && this.ball.top <= this.platform.top)
+                this.ball.width + this.ball.left <= this.platform.left + this.platform.width && this.ball.top <= this.platform.top + this.platform.height)
             {
-                this.ball.changeDirectionY();
+                this.ball.y *= -1.02;
+                this.ball.x =  (this.platform.left - this.ball.left) * 0.02;
             }
         }
 
@@ -202,6 +212,14 @@ export class Platform {
                         }
                     }
                 }
+            }
+        }
+
+        stopGame() {
+            if (this.ball.ballOutOfBound) {
+                this.gameOver = true;
+                this.stopMovePaddle(this.platform);
+                this.stopMoveBall(this.ball);
             }
         }
     }

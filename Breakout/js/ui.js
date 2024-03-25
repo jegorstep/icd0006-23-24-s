@@ -137,8 +137,8 @@ export default class UI {
     drawScore() {
         let score = document.createElement('div');
 
-        score.style.top = this.calculateScaledY(500);
-        score.style.left = this.calculateScaledX(500);
+        score.style.top = this.height - this.calculateScaledY(this.brain.borderThickness) * 2  + 'px';
+        score.style.left = this.calculateScaledX(this.brain.borderThickness) + 'px';
 
         score.style.position = 'fixed';
 
@@ -150,10 +150,31 @@ export default class UI {
         this.appContainer.append(score);
     }
 
+    drawGameOver() {
+
+        let gameOver = document.createElement('div');
+
+        gameOver.style.top = this.calculateScaledY(this.brain.height / 2) + 'px';
+        gameOver.style.left = this.calculateScaledX(this.brain.width / 2) - 100 + 'px';
+
+        gameOver.style.width = this.calculateScaledX(100) + 'px';
+        gameOver.style.height = this.calculateScaledY(50) + 'px';
+
+        gameOver.style.position = 'fixed';
+
+
+        gameOver.style.backgroundColor = 'Yellow';
+
+
+        gameOver.innerText = 'GAME OVER! Press N to play again!';
+
+        this.appContainer.append(gameOver);
+
+    }
+
 
 
     draw() {
-        // clear previous render
         this.appContainer.innerHTML = '';
         this.setScreenDimensions();
 
@@ -162,6 +183,10 @@ export default class UI {
         this.drawPlatform(this.brain.platform);
 
         this.drawBall(this.brain.ball);
+
+        if (this.brain.ball.ballOutOfBound) {
+            this.drawGameOver();
+        }
 
         this.drawScore();
 
