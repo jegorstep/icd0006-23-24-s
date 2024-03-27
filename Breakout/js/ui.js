@@ -132,6 +132,7 @@ export default class UI {
         div.className = 'ball';
 
         this.appContainer.append(div);
+
     }
 
     drawScore() {
@@ -148,6 +149,27 @@ export default class UI {
         score.textContent = "Score: " + this.brain.score;
 
         this.appContainer.append(score);
+    }
+
+    displayAllScores(string) {
+
+        let display = document.createElement('div');
+
+
+        display.style.width = this.width + 'px';
+        display.style.height = this.height + 'px';
+
+        display.style.backgroundColor = 'yellow';
+
+        display.style.position = 'fixed';
+
+        display.style.zIndex = 10000;
+        display.style.textAlign = 'center';
+
+        display.style.fontSize = '24px';
+        display.textContent = string;
+        this.appContainer.append(display);
+
     }
 
     drawGameOver() {
@@ -171,6 +193,7 @@ export default class UI {
         this.appContainer.append(gameOver);
 
     }
+
 
 
 

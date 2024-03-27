@@ -136,38 +136,53 @@ export class Platform {
         pause = false;
         gameOver = false;
 
+        name;
+
         width = 1000;
         height = 1000;
         borderThickness = 30;
         score = 0;
+
+        scores = [];
 
         platform;
         ball;
 
         blockContainer = null;
 
-        constructor(rows) {
+        constructor(rows, name) {
             this.createBlocks(rows);
-            this.platform = new Platform(this.width / 2 - this.borderThickness * 2, this.height - this.borderThickness * 3, 'blue');
+            this.name = name;
+            this.createPlatform();
+            this.createBall();
+
+        }
+
+        createPlatform() {
+            this.platform = new Platform(this.width / 2 - this.borderThickness * 2, this.height - this.borderThickness * 3);
+        }
+
+        createBall() {
             this.ball = new Ball( 500, 400);
         }
 
-        startMovePaddle(paddle, step) {
-            paddle.startMove(step, this.borderThickness, this.width);
+
+        startMovePaddle(step) {
+            this.platform.startMove(step, this.borderThickness, this.width);
         }
 
-        stopMovePaddle(paddle) {
-            paddle.stopMove(this.borderThickness);
+        stopMovePaddle() {
+            this.platform.stopMove(this.borderThickness);
         }
 
-        startMoveBall(ball, step) {
-            if (!ball.ballOutOfBound) {
-                ball.startMove(step, this.borderThickness);
+        startMoveBall(step) {
+            if (!this.ball.ballOutOfBound) {
+                this.ball.startMove(step, this.borderThickness);
             }
         }
 
-        stopMoveBall(ball) {
-            ball.stopMove(this.borderThickness);
+        stopMoveBall() {
+            this.ball.stopMove(this.borderThickness);
         }
 
         ballPaddleCollision() {
@@ -195,6 +210,23 @@ export class Platform {
         this.blockContainer = blockContainer;
         }
 
+        showScore(drawRepeater, ui) {
+
+            let string = '';
+            console.log(this.scores);
+            if (!this.pause) {
+                for (let i = 0; i < this.scores.length; i++) {
+                    string += this.name + ": " + this.score + '\n';
+                }
+            }
+
+            this.pause = true;
+
+            clearInterval(drawRepeater);
+            ui.displayAllScores(string);
+    }
+
+
         ballBlockCollision() {
             for (let i = 0; i < this.blockContainer.length; i++) {
                 for (let j = 0; j < this.blockContainer[i].length; j++) {
@@ -216,10 +248,11 @@ export class Platform {
         }
 
         stopGame() {
-            if (this.ball.ballOutOfBound) {
+            if (this.ball.ballOutOfBound && this.gameOver === false) {
+                this.scores.push(this.score);
                 this.gameOver = true;
-                this.stopMovePaddle(this.platform);
-                this.stopMoveBall(this.ball);
+                this.stopMovePaddle();
+                this.stopMoveBall();
             }
         }
     }

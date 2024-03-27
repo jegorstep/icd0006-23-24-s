@@ -1,5 +1,9 @@
 {
   "dependencies": {
     "http-server": "^14.1.1"
+  },
+  "devDependencies": {
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.4.3"
   }
 }
