@@ -360,7 +360,7 @@ export default class Brain {
         let string: string = '';
         if (!this.pause) {
             for (let i: number = 0; i < this.scores.length; i++) {
-                string += this.name + ": " + this.score + '\n';
+                string += this.name + ": " + this.scores[i] + '\n';
             }
         }
 

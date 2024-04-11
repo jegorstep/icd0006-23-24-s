@@ -22,7 +22,7 @@ export class Ball {
     left = 0;
     top = 0;
 
-    x = 0;
+    x = 1;
     y = 1;
 
     ballOutOfBound = false;
@@ -190,8 +190,7 @@ export class Platform {
             if (this.ball.top + this.ball.height >= this.platform.top && this.ball.left >= this.platform.left &&
                 this.ball.width + this.ball.left <= this.platform.left + this.platform.width && this.ball.top <= this.platform.top + this.platform.height)
             {
-                this.ball.y *= -1.02;
-                this.ball.x =  (this.platform.left - this.ball.left) * 0.02;
+                this.ball.changeDirectionY();
             }
         }
 
@@ -216,7 +215,7 @@ export class Platform {
             console.log(this.scores);
             if (!this.pause) {
                 for (let i = 0; i < this.scores.length; i++) {
-                    string += this.name + ": " + this.score + '\n';
+                    string += this.name + ": " + this.scores[i] + '\n';
                 }
             }
 
@@ -249,7 +248,8 @@ export class Platform {
 
         stopGame() {
             if (this.ball.ballOutOfBound && this.gameOver === false) {
-                this.scores.push(this.score);
+                let a = this.score.toString();
+                this.scores.push(a);
                 this.gameOver = true;
                 this.stopMovePaddle();
                 this.stopMoveBall();

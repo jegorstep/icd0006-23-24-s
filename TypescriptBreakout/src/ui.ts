@@ -190,7 +190,6 @@ export default class UI {
         score.style.left = this.calculateScaledX(this.brain!.borderThickness) + 'px';
 
         score.style.position = 'fixed';
-
         score.style.zIndex = String(10000);
 
         score.style.fontSize = '20px'; // Set font size to 24 pixels

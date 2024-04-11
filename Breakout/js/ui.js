@@ -167,7 +167,9 @@ export default class UI {
         display.style.textAlign = 'center';
 
         display.style.fontSize = '24px';
+
         display.textContent = string;
+
         this.appContainer.append(display);
 
     }
