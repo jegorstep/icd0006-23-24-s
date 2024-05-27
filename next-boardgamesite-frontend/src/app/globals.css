@@ -65,14 +65,14 @@ body {
 
 /*Publication start*/
 .publication {
-    height: 250px;
-    width: 1300px;
+    height: auto;
+    max-width: 1300px;
+    width: 100%;
     display: flex;
     margin-bottom: 20px;
     box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
-
-
 }
+
 
 .publication-image {
     flex: 0 0 200px;
@@ -80,15 +80,17 @@ body {
 
 .publication-image img {
     width: 100%;
-    height: auto;
+    height: 100%;
 }
 
 .publication-info {
     font-family: Arial;
     width: calc(100% - 200px);
+    max-width: calc(100% - 200px);
     padding: 10px;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
 
 }
 
@@ -102,14 +104,311 @@ body {
 
 .publication-info p {
     font-size: 20px;
-    margin-bottom: 5px;
+    margin-bottom: 40px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 .publication-info span {
     font-size: 15px;
-    margin: 60px;
+    margin-right: 60px;
+    margin-left: 60px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.publication-info a{
+    font-size: 15px;
+    padding: 5px;
+    background-color: gold;
+    border-radius: 30px;
+    align-self: flex-end;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: black;
+    text-decoration: none;
 }
 
 .additional-info {
     margin-top: auto;
 }
 /*Publication End*/
+
+
+/*Create CSS*/
+
+.create-row {
+    font-family: "Times New Roman", serif;
+    width: 100%;
+    margin-top: 50px;
+    text-align: center;
+}
+/**/
+
+/*Delete CSS*/
+
+.delete-btn {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.delete-btn:hover {
+    background-color: #c82333;
+}
+
+.details {
+    margin-bottom: 20px;
+}
+
+.details h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.details p {
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+/*Delete End*/
+
+/*Profile Start*/
+
+.profile-container {
+    margin-top: 50px;
+    width: 1300px;
+    height: auto;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
+    background-color: springgreen;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+.profile-picture {
+    margin-top: 10px;
+}
+
+.profile-picture img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+}
+
+.profile-info {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.profile-links {
+    margin-top: 20px;
+}
+
+.profile-links a {
+    display: block;
+    margin-bottom: 5px;
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.profile-links a:hover {
+    color: darkgreen;
+}
+
+.profile-btn {
+    margin: 30px;
+    background-color: #dc3545;
+
+}
+/*Profile End*/
+
+/*Admin Page*/
+.item-container {
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+}
+.links {
+    margin-top: 10px;
+}
+
+.addButton {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+
+.updateLink, .deleteLink, .mechanicsLink {
+    display: inline-block;
+    margin-right: 10px;
+    padding: 6px 12px;
+    background-color: #28a745;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+}
+
+.deleteLink {
+    background-color: #dc3545;
+}
+
+.mechanicsLink {
+    background-color: sandybrown;
+}
+
+.mechanics-list {
+    margin: 20px 0;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+}
+
+.mechanics-item {
+    font-size: 18px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.board-game-container {
+    text-align: center;
+    margin: 20px 0;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+}
+
+.board-game-title {
+    font-size: 24px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+
+/*Details CSS Start*/
+.publication-details {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0.5, 0.5, 0.5, 0.5);
+
+}
+
+.publication-details h2 {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.publication-details div {
+    margin-bottom: 15px;
+}
+
+.publication-details .info-label {
+    font-weight: bold;
+    color: #666;
+}
+
+.publication-details .board-game-info {
+    margin-top: 20px;
+}
+
+.publication-details .board-game-info div {
+    margin-bottom: 10px;
+}
+
+.publication-details .board-game-info span {
+    display: inline-block;
+    margin-right: 10px;
+    padding: 6px 12px;
+    background-color: #f0f0f0;
+    border-radius: 20px;
+    font-size: 14px;
+    color: #333;
+}
+
+.publication-details .board-game-info span:not(:last-child) {
+    margin-right: 10px;
+}
+
+
+/*Details CSS end*/
+
+/*Comments CSS Start*/
+.comments-section {
+    margin-top: 30px;
+    background-color: #afff99;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+.comments-section h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.comment {
+    margin-bottom: 15px;
+
+    border-bottom: #28a745 solid 1px;
+}
+
+.comment-author {
+    font-weight: bold;
+    color: #333;
+    margin: 5px;
+}
+
+.comment-text {
+    color: #666;
+    margin: 15px;
+}
+
+.comment-form {
+    margin-top: 20px;
+}
+
+.comment-input {
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.comment-submit-btn {
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.comment-date {
+    font-size: 12px;
+    color: #999;
+    margin-top: 5px;
+    margin-left: 5px;
+}
+
+.comment-submit-btn:hover {
+    background-color: #0056b3;
+}
+/*Commments CSS end*/

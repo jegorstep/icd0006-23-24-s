@@ -1,7 +1,8 @@
 "use client"
 
 import { AppContext, IUserInfo } from "@/state/AppContext";
-import { useState } from "react";
+import {useEffect, useState} from "react";
+import {useRouter} from "next/navigation";
 
 export default function AppState({
                                      children,
@@ -9,11 +10,20 @@ export default function AppState({
     children: React.ReactNode;
 }>) {
 
+    const router = useRouter();
     const [userInfo, setUserInfo] = useState<IUserInfo | null>(null);
 
+    useEffect(() => {
+        if (!userInfo) {
+            router.push('/login');
+        }
+    }, [userInfo, router]);
+
+
     return (
-        <AppContext.Provider value={{ userInfo, setUserInfo }}>
+        <AppContext.Provider value={{userInfo, setUserInfo}}>
             {children}
         </AppContext.Provider>
     );
+
 }

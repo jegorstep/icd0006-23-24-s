@@ -35,7 +35,7 @@ export default function Login() {
 
         }
         if (response.errors && response.errors.length > 0) {
-            setEmailValidationError(response.errors[0]);
+            setEmailValidationError('Wrong email or password!');
         }
     }
 

@@ -71,12 +71,13 @@ export default function Register() {
             const response = await AccountService.register(email, pwd, firstName, lastName, country, sex);
             if (response.data) {
                 setUserInfo(response.data);
-                if (response.errors && response.errors.length > 0) {
-                    setEmailValidationError(response.errors[0]);
-                }
+            }
+            if (response.errors && response.errors.length > 0) {
+                setEmailValidationError('Email already exist!');
             }
         }
     }
+
     if (userInfo) {
         router.push("/");
         return null;
