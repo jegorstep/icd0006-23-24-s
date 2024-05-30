@@ -26,8 +26,14 @@ export default function BoardGames() {
         }
     }
 
+    async function refreshToken() {
+        const refreshedUserInfo = await AccountService.refreshToken(userInfo!.jwt, userInfo!.refreshToken);
+        setUserInfo(refreshedUserInfo.data!);
+    }
+
     useEffect(() => {
         fetchBoardGames();
+        refreshToken();
 
     }, []);
 

@@ -6,6 +6,7 @@ import { useContext, useEffect, useState } from "react";
 import {IPublication} from "@/domain/IPublication";
 import PublicationService from "@/services/PublicationService";
 import Link from "next/link";
+import AccountService from "@/services/AccountService";
 
 
 export default function Publications() {
@@ -13,7 +14,10 @@ export default function Publications() {
     const [Publications, setPublications] = useState<IPublication[]>([]);
     const { userInfo, setUserInfo } = useContext(AppContext)!;
 
-
+    async function refreshToken() {
+        const refreshedUserInfo = await AccountService.refreshToken(userInfo!.jwt, userInfo!.refreshToken);
+        setUserInfo(refreshedUserInfo.data!);
+    }
     const loadData = async () => {
         const response = await PublicationService.getAll(userInfo!.jwt)
         if (response.data) {
@@ -23,7 +27,11 @@ export default function Publications() {
         setIsLoading(false);
     };
 
-    useEffect(() => { loadData() }, []);
+    useEffect(() =>
+    {
+        loadData();
+        refreshToken();
+    }, []);
 
     if (isLoading) return (<h1>Publications - LOADING</h1>);
 

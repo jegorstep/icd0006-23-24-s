@@ -51,10 +51,16 @@ export default function Profile() {
         setErrors(response.errors ? response.errors[0] : '');
     }
 
+    async function refreshToken() {
+        const refreshedUserInfo = await AccountService.refreshToken(userInfo!.jwt, userInfo!.refreshToken);
+        setUserInfo(refreshedUserInfo.data!);
+    }
+
     useEffect(() => {
         loadData();
         loadPublications();
         loadItems();
+        refreshToken();
     }, []);
 
     useEffect(() => {

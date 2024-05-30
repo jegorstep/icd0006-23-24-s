@@ -2,7 +2,6 @@
 import Link from "next/link";
 
 export default function Admin() {
-
     return (
         <span>
             <Link href="admin/boardgames">Board Games</Link>|

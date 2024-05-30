@@ -8,6 +8,7 @@ import PublicationService from "@/services/PublicationService";
 import Link from "next/link";
 import {IItem} from "@/domain/IItem";
 import ItemService from "@/services/ItemService";
+import AccountService from "@/services/AccountService";
 
 
 export default function Items() {
@@ -25,7 +26,15 @@ export default function Items() {
         setIsLoading(false);
     };
 
-    useEffect(() => { loadData() }, []);
+    async function refreshToken() {
+        const refreshedUserInfo = await AccountService.refreshToken(userInfo!.jwt, userInfo!.refreshToken);
+        setUserInfo(refreshedUserInfo.data!);
+    }
+
+    useEffect(() => {
+        loadData();
+        refreshToken();
+    }, []);
 
     if (isLoading) return (<h1>Items - LOADING</h1>);
 

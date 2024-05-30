@@ -7,6 +7,7 @@ import Link from "next/link";
  import {AppContext} from "@/state/AppContext";
  import {IMechanic} from "@/domain/IMechanic";
  import MechanicService from "@/services/MechanicService";
+ import AccountService from "@/services/AccountService";
 
 export default function Mechanics() {
     const [mechanics, setMechanics] = useState<IMechanic[]>([]);
@@ -22,8 +23,14 @@ export default function Mechanics() {
         }
     }
 
+    async function refreshToken() {
+        const refreshedUserInfo = await AccountService.refreshToken(userInfo!.jwt, userInfo!.refreshToken);
+        setUserInfo(refreshedUserInfo.data!);
+    }
+
     useEffect(() => {
         fetchMechanics();
+        refreshToken();
 
     }, []);
 
