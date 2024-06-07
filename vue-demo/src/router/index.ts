@@ -68,6 +68,7 @@ const router = createRouter({
       path: '/mechanic/delete?id=:id', name:'DeleteMechanic', component: DeleteMechanic, props: true
     }
   ]
+
 })
 
 export default router
